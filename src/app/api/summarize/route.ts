@@ -27,8 +27,32 @@ ${text}`;
     });
 
     const summary = completion.choices[0].message.content;
-    return NextResponse.json({ summary });
+    return NextResponse.json({ summary }, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
   } catch (err) {
-    return NextResponse.json({ error: "GPT error" }, { status: 500 });
+    return NextResponse.json({ error: "GPT error" }, { 
+      status: 500, 
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      }
+    });
   }
+}
+
+// CORS preflight support
+export async function OPTIONS() {
+  return NextResponse.json({}, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
 }
