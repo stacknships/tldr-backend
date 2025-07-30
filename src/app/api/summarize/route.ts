@@ -56,3 +56,5 @@ export async function OPTIONS() {
     },
   });
 }
+
+console.error("OpenAI error:", err);
