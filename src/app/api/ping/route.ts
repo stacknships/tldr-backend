@@ -1,4 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+export async function POST(req: NextRequest) {
+  console.log("PING endpoint called");
+
+mport { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   return NextResponse.json({ pong: true }, {
     headers: {
@@ -18,6 +21,5 @@ export async function OPTIONS() {
   });
 }
 
-export async function POST(req: NextRequest) {
-  console.log("PING endpoint called");
+
   // ...rest of your code
