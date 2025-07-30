@@ -1,4 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
+  console.log("PING endpoint called");
+  // ...rest of your code
+
+  
 export async function POST(req: NextRequest) {
   return NextResponse.json({ pong: true }, {
     headers: {
