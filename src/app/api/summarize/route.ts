@@ -35,6 +35,7 @@ ${text}`;
       },
     });
   } catch (err) {
+    console.error("OpenAI error:", err);  // <-- Move it here!
     return NextResponse.json({ error: "GPT error" }, { 
       status: 500, 
       headers: {
@@ -56,5 +57,3 @@ export async function OPTIONS() {
     },
   });
 }
-
-console.error("OpenAI error:", err);
