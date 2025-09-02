@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { OpenAI } from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+const openai = new OpenAI({
+  apiKey: process.env.OPENROUTER_API_KEY!,
+  baseURL: "https://openrouter.ai/api/v1",
+});
 
 export async function POST(req: NextRequest) {
   const { text } = await req.json();
