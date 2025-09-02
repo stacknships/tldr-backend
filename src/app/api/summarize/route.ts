@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { OpenAI } from "openai";
 
-// Make sure Next.js doesn't try to prerender this at build time
-export const dynamic = "force-dynamic"; // Next 13+/15
-// (Optional) If you prefer Edge runtime, you can also add:
+// Prevent Next.js from executing this route at build time
+export const dynamic = "force-dynamic";
+// If you prefer edge runtime, uncomment the next line (optional):
 // export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
@@ -14,18 +14,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing 'text' in body" }, { status: 400 });
     }
 
-    // Prefer OpenRouter if configured, otherwise fall back to OpenAI
+    // Prefer OpenRouter if present; otherwise fall back to OpenAI
     const openRouterKey = process.env.OPENROUTER_API_KEY;
     const openAiKey = process.env.OPENAI_API_KEY;
 
     if (!openRouterKey && !openAiKey) {
-      // Return at runtime instead of crashing the build
       return NextResponse.json(
         { error: "No API key configured. Set OPENROUTER_API_KEY or OPENAI_API_KEY." },
         { status: 500 }
       );
     }
 
+    // ⚠️ Create the client INSIDE the handler (runtime), not at module scope
     const useOpenRouter = Boolean(openRouterKey);
     const client = new OpenAI({
       apiKey: useOpenRouter ? openRouterKey! : openAiKey!,
@@ -81,7 +81,6 @@ ${text}`;
   }
 }
 
-// CORS preflight support
 export async function OPTIONS() {
   return NextResponse.json(
     {},
