@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
 
     // Prefer OpenRouter if present; otherwise fall back to OpenAI
     const openRouterKey = process.env.OPENROUTER_API_KEY;
-    const openAiKey = process.env.OPENAI_API_KEY;
+    //const openAiKey = process.env.OPENAI_API_KEY;
 
     if (!openRouterKey && !openAiKey) {
       return NextResponse.json(
